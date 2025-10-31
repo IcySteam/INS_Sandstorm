@@ -1,0 +1,12 @@
+{
+	"MajorVersion": 4,
+	"MinorVersion": 25,
+	"PatchVersion": 2,
+	"Changelist": 113369,
+	"CompatibleChangelist": 113369,
+	"IsLicenseeVersion": 1,
+	"IsPromotedBuild": 1,
+	"BranchName": "++sandstorm+build-release-1.7.1-editor",
+	"BuildId": "113369",
+	"BuildVersion": ""
+}
