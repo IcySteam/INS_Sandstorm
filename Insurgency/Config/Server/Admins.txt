@@ -1,3 +1,4 @@
 ; Using semicolon for comment
 ; Put the SteamID64 in each line to make them admin
-76561198010486399
+76561198241852422
+76561198448319016
