@@ -1,7 +1,7 @@
 Approved & config-FRIENDLY mutators (command line mutator modifications NOT working with Streamline servers as of 1.4):
 
 Default mutator properties:
-Vampirism?MaxHealth=300
+Vampirism?MaxHealth=150
 
 Mutator combos:
 (AntiMaterielRiflesOnly,NoDrops,Vampirism), bBotsUseHumanLoadouts=False
