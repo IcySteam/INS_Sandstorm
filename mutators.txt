@@ -1,7 +1,8 @@
 Approved & config-FRIENDLY mutators (command line mutator modifications NOT working with Streamline servers as of 1.4):
 
 Default mutator properties:
-Vampirism?MaxHealth=150
+Frenzy: Vampirism?MaxHealth=300
+Co-Op: Vampirism?MaxHealth=150
 
 Mutator combos:
 (AntiMaterielRiflesOnly,NoDrops,Vampirism), bBotsUseHumanLoadouts=False
@@ -16,7 +17,7 @@ Mutator combos:
 (Frenzy,Vampirism?MaxHealth=IED_DAMAGE,Poor) (knife fight against frenzy enemies)
 (Vampirism,Poor,SoldierOfFortune)
 (HotPotato,FastMovement)
-(HotPotato,Vampirism)
+(HotPotato,Vampirism?MaxHealth=300)
 (PistolsOnly,Ultralethal), bBotsUseHumanLoadouts=True (need mod to increase number of spare mags otherwise limited to 4 for heavy carrier)
 (ShotgunsOnly,NoDrops,Vampirism), bBotsUseHumanLoadouts=False
 (Ultralethal)
