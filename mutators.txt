@@ -9,6 +9,7 @@ Mutator combos:
 (BulletSponge)
 (FastMovement)
 (HeadshotOnly)
+(Frenzy,AllYouCanEat)
 (Frenzy,Vampirism,AllYouCanEat,FullyLoaded)
 (Frenzy,BulletSponge,PistolsOnly,Ultralethal)
 (Frenzy,BulletSponge,ShotgunsOnly,Ultralethal)
