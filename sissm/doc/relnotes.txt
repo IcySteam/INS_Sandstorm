@@ -1,0 +1,811 @@
+Release 1.4.0 20241216
+
+    Added compatibiity with WinGDK market (in addition to Steam and EPIC)
+    Pirebooter: Enhanded inactivity "hung" detect due to some non-standard 3rd party map implementation
+    Added !geneva on/off
+        piantirush.genevaDefault             0                        // default 0=disable, 1=enable
+        piantirush.genevaKickReason             "Auto-kicked for illegal use of weapon.  Try again!"
+        piantirush.genevaKickWarnMessage              "*Geneva Protocol III restriction in effect: "
+        piantirush.genevaWeapons                                                     "Molotov ANM14"
+    Experimental code (WIP) for players camping to "bot spawnkill" - disabled by default 
+
+Release 1.3.0 20230427
+
+    Added !clan command and "!lock clan" parameter (see doc/wp_clanlock.txt)
+    Appended lighting (day, night, dusk...) display to map name on piwebgen
+    Added ability to auto-lock server on idle (and reboot/startup) 
+       pigateway.lockServerOnIdle       0   // if =1, server goes to "lock" state on idle/boot
+    Added !mutactive command to display active mutators (picladmin)
+    Added piwebgen.showMutators ; when non-zero, display active mutators on web
+    New plugin piprotect to minimize server crashes on join-in-progress (see plugin doc/piprotect.txt)
+    Added 'kill activity' detector when !wax on/!strict is turned on - can't breach until 'n' seconds of non-kills
+        piantirush.minimumQuietTimeSec  0         // 0 disables this feature.  10 recommended.
+        piantirush.teamNotReadyPrompt   "Denied - Team NOT ready!"
+
+    Fixed a bug where server under "!lock perm" became unlocked after "!reboot now"
+    Incresed string size for authorized list of commands allowed per privilege class
+    Changed Mutator match logic so that exact name match has higher presidence over partial matches.
+    Added acknowledgements to !nowait and !nokick (picladmin)
+    Cleanup multiple messages when "!wax on" is active
+    Enhanced !kick command workaround on NWI bug unable to kick Epic players (for SS vers 1.13, 1.12)
+
+    Reminder to update your sissm.cfg: add new commands to admin privilege levels "sissm.groupcmds[*]"
+       a. Recommanded new for Admins:      !mutactive, !clan
+       b. Recommended new for Moderators:  !mutactive
+       c. Recommanded for all players:     !strict
+
+Release 1.2.0 20220929
+
+    Picladmin: Added "!wax on|off|perm" command to autokick players not using breach code (extends piantirush autokick feature) (*1)
+        piantirush.trainingOnDefaultEnable   0
+        piantirush.trainingModeMsg           "Typing '11' before Breach/Blow is REQUIRED!!"
+    Example_sissm.cfg - English cleanup, removed "5 second" time text reference from 'aa' and '22' two letter codes.
+    Picladmin: Added !nokick (!nk) command to exempt antirush autokick for small window of time (~15s)  (*1)
+        On sissm.cfg file
+            picladmin.noKickProtectSec  15   // #sec to exempt autokick when !nokick command is issued
+    Picladmin/antirush: Fixed 'a', '1', '2' bug - will no longer accelerate early breach/blow
+    Possible fix of a bug auto-kick was not detecting early rushers entering the capture zone.
+    Picladmin: "!help list" now only shows commands allowed to be executed by the command originator
+    Example_sissm.cfg:  English/cosmetics two-letter-codes, cleaned up jj, JJ, mm
+    Pidynbots: Increased PIDYN_MAXADJUSTERS from 64 to 128 (map table size for dynbots bot count adjustment)
+    Picladmin:  "!bf 0" now works for server testing with zero bots!
+    Picladmin: Added !nowait (!nw) command to remove anti-rush (piantirush) delay for the current objective only. (*1)
+
+    Picladmin: Added mutator support to the "map" command
+    Picladmin: Update sissm.cfg with list of supported mutators, examples:
+        sissm.MutatorsStock "AntiMaterielRiflesOnly BoltActionsOnly Frenzy HotPotato ShotgunsOnly PistolsOnly MakarovsOnly NoDrops Vampirism"
+        sissm.MutatorsMods  "Medic HealthRegen HardcoreHUD"
+    Picladmin: Added new command "mutlist" to list the above mutators (*1)
+    Piclgateway: Modified "!lock on|off|perm" so that perm requires either 'off' command or empty server to clear
+    Documentation: updated doc/picladmin.txt command list.
+    Docuemntation: added doc/wp_setup_mutators.txt appnote.
+
+    (*1) = Reminder to update your sissm.cfg: add new commands to admin privilege levels "sissm.groupcmds[*]"
+           a. Recommanded new for Admins:      wax nowait nokick mutlist 
+           b. Recommended new for Moderators:  wax nowait nokick mutlist 
+
+Release 1.1.0 20220909 / 1.1.1 20220910
+
+    !! Please change in Engine.ini "LogNet=Verbose" to "LogNet=Log" due to large# of data as of Sandstorm 1.12 !!
+
+    Picladmin: Added '!reinit' root-admin (owner) command in picladmin to re-read the auth and badwords table (*1)
+    Added "deadcmdr" auth attribute - allows stack/breach/blow ('33', '11', 'aa', etc.) to be issued by dead Admins/moderators
+        Example sissm.cfg:  sissm.groupattr[1]   "admin moderator priport deadcmdr"
+    Fixed sissm hot-restart problem when '11' 'aa' early breach did not register until start of next round or player resurrect.
+    Fixed auto-kick logic to workaround NWI rcon bug with EPIC ID
+    Picladmin: Force bot !difficulty 10.0 (aidifficulty 1.0) limit to 9.9 (aidifficulty 0.99)
+    Pidynbots: Added bias table for game mode-dependent adjustments to bot counts, for mixed checkpoint/hardcore servers
+        To sissm.cfg add the following:
+            pidynbots.modeAdjust[0] "checkpoint          0  0"
+            pidynbots.modeAdjust[1] "hardcorecheckpoint -1 -8"
+    Picladmin: !map command will now recognize ?Mode= string as parameter, e.g., "!map town ins night hardcore"
+        You must 'fully specify' your Mapcycle.txt.   Also see doc/example_Mapcycle.txt
+            #SISSM.mapname=Oilfield
+            (Scenario="Scenario_Refinery_Checkpoint_Insurgents",Options="?Mutators="none",Mode="CheckpointHardcore",Lighting="Day")
+            (Scenario="Scenario_Refinery_Checkpoint_Insurgents",Options="?Mutators="none",Mode="Checkpoint",Lighting="Day")
+    Increase defendtimer "1" to "3" on SoloPlayers which may be causing a race condition bug on slower servers (unverified)
+    Piwebgen:  Added option to display game mode on web:  
+        To sissm.cfg add the following:
+            piwebgen.showGameMode  1    // default 0 do not show
+    Piwebgen:  Added option to periodically re-read server hostname (this is uncommon).  Sissm.cfg adds:
+        To sissm.cfg add the following:
+            piwebgen.reReadHostName  0   // default 0  - do not periodically re-read
+    Picladmin: Issuing "!reboot eor/eog" from RCON on an empty server will now reboot immediately
+    Piclgateway: Added "!lock on|off|perm" command, allows admins to temp block all non-admin/moderator/clan joins.  (*1) 
+        To sissm.cfg add the following:
+            pigateway.adminPortKickMsgFull                 "Server full."
+            pigateway.adminPortKickMsgLock                 "Server hosting a special event."
+    Picladmin: Added !botreset command to restore bot control to SISSM  (counteracts !bs, !bf and !bd commands) (*1)
+    Picladmin: Added !botrespawn experimental command to reset alledged bot bug/stuck bots -- use with care (*1)
+    Picladmin: Added !endgame command to for end of current game, and initiate the next map voting (*1)
+
+    (*1) = Reminder to update your sissm.cfg: add new commands to admin privilege levels "sissm.groupcmds[*]"
+           a. Recommanded new for Admins:      lock botreset botrespawn endgame
+           b. Recommended new for Moderators:  botreset endgame
+           c. Recommanded new for Solo Admins:  endgame
+           d. Command "reinit" should be reserved for "root" user(s) so no entry is needed in sissm.cfg
+
+    Hotfix release 1.1.1 - fixed typo in !endgame command, only 'root' was able to run this command. 
+    Hotfix release 1.1.1 - fixed bug in !lock command was not auto-unlocking in some cases
+
+Release 1.0.0 20220327   
+
+    Added Steam and EPIC player-ID compatability (a major internal change)
+        No changes to the sissm.cfg file for this issue.
+    Typo on my previous releate note for 0.2.9:  botsUpperMin -> botUpperMin 
+    Changed default max bots to 200 (formerly 60)
+    Corrected missing maps in example sisssm.cfg
+    Corrected missing maps in example mapcycle
+    Corrected missing maps in pidynbots profile in sissm.cfg
+    Added more 'two letter codes' in sissm.cfg
+
+Beta 02.9 (0.2.9) 20211117
+
+    Experimental: Modified antirush #taps auto-kick compliant to work with buggy maps
+    Sandstorm v1.11 parsing compatibility for Rcon:listplayers output
+    Added alternate objective parsing for 3rd party maps (needed for pidynbots)
+    Player-name profanity filter may now also contain SteamID, in addition to offensive terms
+    Changes to example_sissm.cfg:
+        Changed default to "*" for servername (reads name from the server at startup)
+        Added more two-letter-codes (pitacnomic)
+        Added new maps to example_sissm.cfg for dynamic bot count adjustments (pidynbots)
+        Adjust some piantirush parameters to be more strict (default: disabled)
+        Adjust pidynbot bot count table for higher bot count (default: disabled)
+        Added to pidynbot table, new official maps for bot count adjustments (default: disabled)
+        Added new parameters  
+            picladmin.botsUpperMin  10        // maximum allowed "minimumenemies" for !botscaled command
+
+Beta 02.8 (0.2.8) 20201107
+
+    (** see sissm.cfg changes)
+
+    Fixed a bug where !map failed to change to insurgency-side or night by "!map mapname ins"
+    Added option to disable list of two-letter-commands issued by dead-players (e.g., breach/blow) **
+    Added redundant code to antirush that fails to autokick some players 
+    Added utf-8 encoding directive for piwebgen, allowing International chars to be displayed **
+    Added two entries '77' and '88' to pitacnomic  **
+    Added list of two-letter-codes that cannot be issued by dead players in spec **
+    Added the option to reboot on end-of-round instead of end-of-game for server reboot exceeding max time. **
+
+    sissm.cfg additions:
+
+        piwebgen.utf8Encoding   1                     // enable utf-8 encoding (international chars)
+
+        pitacnomic.shorts[7] "77::Resupplying/Reloading - Cover me!!"
+        pitacnomic.shorts[8] "88::Going back for Resupply - Standby one"
+
+        pitacnomic.livePlayersOnly "00 11 22 33 44 55 66 77 88 99 aa pp rr ll mm"
+
+        pirebooter.rebootOnEOR  0                 // for rebootBusy reboot at end of 0=game, 1=round
+
+    Minor/Internal:
+
+        pirebooter.c: Corrected typo "reconnect"
+        Log.c: Added filter to sissm.log so CR and LF will be replaced by <Space>
+        Broad code cleanup to address strict type checking warnings under both gcc and msvc compilers
+        Added "apiKickAll" method to be called prior to server reboot/restart.
+
+Beta 02.7 (0.2.7) 20200926 
+
+    Changes:
+
+    Added macros privilege for 'soloadmin' and 'everyone' auth class
+    Mixed-mode compatibility for SS 1.8, namely checkpoint, checkpointhardcore, outpost
+    Added bant and banidt "temp ban" commands (recommended for moderator use)
+    Expanded commands:  !reboot eor, !reboot eog, !reboot cancel
+    SISSM commands can now be executed externally via RCON, don't forget the prefix (default "!")
+    SISSM commands can now be executed from Macro definition table entry, don't forget the prefix (default "!")
+
+    ------------------------------------
+    Bug fixes:
+    (REDO) Fixed antirush plugin messages appearing - corrected the fix in 0.2.6.
+    Fixed a typo in eventhandler callback index for objective-list entries
+
+    ------------------------------------
+    sissm.cfg changes:
+
+    Add the 'soloadminmcrs' to picladmin section for 'soloadmin'
+        sissm.soloadminmcrs  ""
+        sissm.soloadminattr  ""
+        sissm.soloadmincmds  "map maplist"
+
+    Add 'bant' and 'banidt' commands to sissm.groupcmds[0], sissm.groupcmds[1] and sissm.groupcmds[2]
+
+    Add temp ban duration 
+        picladmin.tempBanMinutes  1440
+
+    Add antirush-autokick messages (these were missing from the example_sissm.cfg  on the last release)
+        piantirush.earlyBreachTapsKickMessage   "Auto-kicked for excessive number of nuisance objective taps"
+        piantirush.earlyBreachTimeKickedMessage "Uncoordinated breach on tactical server - try again"
+        piantirush.earlyBreachWarn              "premature breach warning"
+        piantirush.earlyBreachExit              "is off the objective"
+
+
+    ------------------------------------
+    Documentation
+  
+    *  SISSM_Quickstart was updated to include Engine.ini entries required to run advanced plugins
+    *  picladmin.txt adds the new bant and banidt commands
+    *  Minor cleanups, typos, links
+
+    ------------------------------------
+    Under-the-hood:
+
+    *  Moved development platform to Debian 10 (formerly Ubuntu 18) 
+    *  Compatibility with GCC compiler version 8.3.0
+    *  pisoloplayer will suspend for non-checkpoint modes: _singlePlayerNoCounter()
+    *  pidynbots will suspend for non-checkpoint modes: _computeBotParams() _inRespawnMode()
+    *  piantirush will suspend for non-checkpoint modes:  localSay/localsayThrottled/_captureSpeed/_rulesAlarmCB
+    *  General cleanups - Dead/debug code removal
+
+
+Beta 02.6 (0.2.6) 20200716 (hotfix to 0.2.5)
+
+    ------------------------------------
+    Bug fixes:
+
+    Fixed antirush plugin messages appearing in game when antirush plugin is not used/disabled.
+    Fixed SISSM crash on some systems when sissm.removeCodes are enabled 
+
+    ------------------------------------
+    Feature changes:
+  
+    Added "soloadmin" picladmin class.  When a player is playing solo on server, the listed admin 
+       commands are available to the solo non-admin player.  Recommended use:  !map, and !maplist.  
+       NOT recommended for any other commands including bot count/difficulty settings due to possibility for trolling.
+
+    ------------------------------------
+    sissm.cfg changes:
+
+    Comemnt out or set to empty string ("") if you do not want to enable solo admin command list:
+
+        sissm.soloadminattr  ""
+        sissm.soloadmincmds  "map maplist"
+
+
+Beta 02.5 (0.2.5) 20200711
+
+    ------------------------------------
+    Feature changes:
+
+    Added !rules command, up to 5 lines
+    Added !contact command, single line
+    Enhanced anti-rush algo to allow immediate objective capture/blow when there are less than 'N' live players (default 2)
+    Added !maplist and !map commands for admins/moderators to change maps immediately.   Specially formatted Mapcycle.txt
+        is required.  You must also add sissm.mapcycleFilePath to sissm.cfg (see below).  Example Mapcycle.txt is posted here:  
+        https://github.com/schroeder-lvb/sissm/blob/master/doc/example_Mapcycle.txt
+    Added doc/example_Mapcycle.txt, doc/example_Mods.txt and doc/example_sissm.cfg files to github repo/quick-start package.
+
+    ------------------------------------
+    Internal changes:
+
+    Increased poll rate of Insurgency.log tailing due to some maps spewing huge amounts of error/warnings
+    Added alternate algorithm for determining current objective on 3rd party maps that are using non-compliant labeling
+    Added time filter to prevent the "say" buffer from overflowing on faulty maps missing zone enter/exit hysteresis 
+
+    ------------------------------------
+    sissm.cfg changes:
+
+    1) Please remove 'contact' and 'rules' from the macros table, add it to commands table to look like this:
+
+        sissm.everyonecmds   "help version info ask prep warn rules contact"
+        sissm.everyonemacros ""
+
+    2) Added new !rules and !contacts commands/entries
+
+        // When a player types !rules, these messages are shown on screen
+        // with 'n' second interval (default 2).  Up to 5 lines can be
+        // displayed.
+        //
+        picladmin.rulesInfo[0]  "1 Harrassment, racism, sexism prohibited"
+        picladmin.rulesInfo[1]  "2 Hostile, lewd, immature behaviors prohibited"
+        picladmin.rulesInfo[2]  "3 No rush, ask before blowing a cache"
+        picladmin.rulesInfo[3]  "4 No rush, ask before breaching an objective"
+        picladmin.rulesInfo[4]  "5 No rushing to objectives by yourself"
+        picladmin.rulesIntervalSec  2   // #secs between rules lines are displayed
+
+        // single line printed when a player types !contact.  This may be a web site,
+        // clan name on a forum, or email
+        //
+        picladmin.contactInfo  "Find us at www.example.com"
+
+    3) Added new a "low-players-alive (LMS)" antirush algorithm exemption
+
+        piantirush.autoKickExemptLMS          2  // max # survivors to allow early capture
+        piantirush.autoKickExemptMsg  "Early objective capture is AUTHORIZED NOW due to low survivors"
+
+    4) Added filepath to Mapcycle.txt and allow "map" and "maplist" commands to moderators & higher
+
+        sissm.mapcycleFilePath                  "/home/ins/iss/Insurgency/Config/Server/Mapcycle.txt"
+
+        And append/allow "map" and "maplist" commands to moderators & higher:
+
+        See 'example_sissm.cfg' for updates to: sissm.groupcmds[0], sissm.groupcmds[1], sissm.groupcmds[2]
+        See 'example_Mapcycle.txt' for special formatting required for !map and !maplist commands
+
+    5) Support for Circleus' Advanced Chat Mod color codes
+
+        sissm.removeCodes       "<bold> <Red> <BLUE> <green> <yellow> <orange> <purple> <cyan> </>"
+
+        When defined, SISSM will remove all above tags from the messages sent to the player console.  
+        This is useful if you are running modded and unmodded servers but wish to share the 
+        same/similar sissm.cfg file.  This way you may change SISSM text strings to include a color 
+        code for your modded servers, and define 'removeCodes' for your unmodded servers.
+
+    6) Optional pre/post-fix for greetings (connected/disconnected messages) for those looking to colorize player names.
+
+        pigreetings.connectedPrefix         "'"    // player name prefix string for connect
+        pigreetings.connectedPostfix        "'"    // player name postfix string for connect
+        pigreetings.connectedAsAdminPrefix  "'"    // admin name prefix string for connect
+        pigreetings.connectedAsAdminPostfix "'"    // admin name postfix string for connect
+        pigreetings.disconnectedPrefix      "'"    // player/admin disconnect prefix string
+        pigreetings.disconnectedPostfix     "'"    // player/admin disconnect postfix string
+ 
+    7) Engine.ini changes - please include the following to your Engine.ini.  These are required for two
+        features:  1) running MODDED maps that use non-standard objective labeling, 2) running anti-rush
+        plugin that detects/displays/auto-kicks 'rush' players on Checkpoint/HardcoreCheckpoint.
+
+    [Core.Log]
+        LogGameplayEvents=Verbose
+        LogDemo=Verbose
+        LogObjectives=Verbose
+        LogGameMode=Verbose
+        LogNet=Verbose
+        LogINSGameInstance=Verbose
+        LogUObjectGlobals=Verbose
+
+     ---------------
+     Konwn Issues/Bugs
+
+     For WINE/Linux, SISSM fails to recognize admin command due to startup file sync.  It will
+        "fix itself" over time.  Another workaround: you may also manually restart sissm.  This 
+        seem to only happen when the server is cold-restarted.  Investigating.
+
+     Circleus' Advanced Hud color option does not work with some third-party maps that 
+       overrides the system HUD.  Since there is no way to detect this for automatic disable,
+       a future SISSM plugin must be written to disable color for 'listed' maps known to override the HUD.
+
+     Currently SISSM !map command does not support on-the-fly mutator change.  Most servers run specific
+        and set mutator, but future SISSM command must be implemented if you want to change
+        mutator sets "on the fly."
+
+
+Beta 02.4 (0.2.4) 20200507
+
+    PIAntiRush: Added "auto-kick" for early objective entry -- kicks players that occupies objective zone early
+    Clean-up "!fast on" and "!fast off" picladmin commands to be compatible with piantirush
+    See doc/sissm_example.cfg "piantirush" section for a new block of data additions.
+    See doc/piantirush.txt for detailed setup inforamtion on the improved anti-rush algorithm
+    Note:  not tested with mods/community maps!  Please report any compatibility problems or bugs!
+    Note:  Version 0.2.4 is an anti-rush single-feature release due to code complexity 
+
+Beta 02.3 (0.2.3) 20200416
+
+    Bugfix: !bs command upper bot limit check was fixed at 60 - now configurable from sissm.cfg (picladmin)
+
+    sissm_example.cfg
+        Completed baseline bot adjuster table for all stock security and insurgent maps
+
+    Added a non-linear bias table for dynamic bot loading (pidynbots); changes to sissm.cfg:
+        pidynbots.BotBias      "0  0  1  2  2  3  2  1  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0"
+        pidynbots.MaxBotsCrashProtect    100    // maximumenemies/soloenemies max for crash protect
+
+    Added "auto-kick" to piantirush plugin for checkpoint -- kicks player (1) that blows weapons cache early
+    It is disabled by default.
+    IMPORTANT: Engine.ini modification is required - see doc/piantirush.txt for more details
+        piantirush.autoKickEarlyDestruction   0     // 1=auto kick rushers that blows up cache early
+        piantirush.destroyOkPrompt                    "Cache destruction AUTHORIZED if team concurs"
+        piantirush.destroyDenyPrompt                           "Early destruct DENIED at this time."
+        piantirush.destroyHoldPrompt                   "*Cache desturct UNAUTHORIZED - 'aa' or '11'"
+        piantirush.earlyDestroyKickMessage    "Auto-kicked for Unauthorized early cache destruction"
+        piantirush.earlyDestroyPlayerRequest                       "aa pp 00 11 22 33 44 55 ask req"
+        piantirush.destroySpeedup            90                 // sec destruct speedup if requested
+
+    Added optional check for minimum name length requirements; set to 0 to disable (allow any)
+        pigateway.minPlayerNameLength         4          // minimum player name length (def 4)
+        pigateway.minPlayerNameMsg      "player name too short"
+
+    Macros table (picladmin)
+        Increased Macro table from 64 to 128
+        Added more example entries to sissm_example.cfg:  hotpotato, bigmoney, etc.
+
+    Added check & kick for minimum player name character length.  It is disabled by default 
+        pigateway.minPlayerNameLength         0     // minimum player name length (def 0 = no check)
+        pigateway.minPlayerNameMsg      "player name too short"
+
+    Added auto-kick on "troll word" detect in chat content.  List racial slur words here.
+        pigateway.chatTrollWords   "admin: admins: admin;"       // auto-kick on chat string match
+    
+Beta 02.2 (0.2.2) 20200208
+
+    Bugfix: made hardcoded counterattack 'defendTimer' adjustable from sissm.cfg. 
+    Bugfix: player greeting will no longer triple print when player name starts with *
+    Bugfix: Refactor low-level File I/O in ftrack for compatibility with Debian 10/Ubuntu 19
+    Bugfix: Changed low level I/O for Linux Rdrv (network) to avoid broken-pipe ghost SISSM crash
+
+    New: added as built-in feature rcon terminal (very handy).  Sissm.cfg is not required.
+        ./sisssm -t hostname/ip# rconport# rconpassword
+        After connecting to your server, type 'help' for list of game supported commands
+
+    1. sissm_example.cfg changes/recommended changes: 
+        a. Expanded pidynbots objective bot adjustment table for all maps (use as example)
+        b. Added code 'tap' to picladmin.reason[] - may not affect your community
+        c. Added code 'xx' to pitacnomic.shorts[] - may not affect your community
+
+    2. sissm_example.cfg new entries:
+        a. pisoloplayer.defendTimer  90  // copy c/a defendTimer from Game.ini
+
+    Starting Beta 02.2 the Quick-Package will no longer include the Windows DEBUG variants of sissm.exe.
+    This is because the DEBUG version has consistently false-detected SISSM as a trojan.  If you need
+    the DEBUG version, please compile it from the source, or contact me directly. 
+
+Beta 02.1 (0.2.1) 20191219
+
+    pidynbots: Added support for Soloenemies (coop instant respawn) by emulating
+        min/maxenemies linear scaling (change bot count based on player#) as well as by
+        adjustments per map, side, and objective.  For setup see doc/pidynbots 
+        and follow Examples 1-4.
+    picladmin: Added option to add "reason" for ban/banid/kick/kickid, either full text, 
+        or by preset reason against rules
+    sissm: Added segfault/stack-fault crash reporter with call-tree backtrace (Linux only)
+        If SISSM crashes, please send the "sissm.cfg.crashreport" file.
+    piwebgen can optionally read displayed server name from RCON
+        To enable auto-read, set server name to "*" in pidwebgen module.
+    piwebgen can now display any combination of 1) last/reason last rebooted (new), 2) time since last 
+        rebooted with reason (new), and/or 3) time updated (legacy)
+    See doc/sissm_example.cfg for latest onfiguration file 
+    The "QuickStart" package will include two more Windows binaries: "sissm_dbg.exe" and 
+        "sissm_restricted_dbg.exe."  Some Windows Server 2016 may not execute the optimized
+        versions of sissm.exe.  However, the _dbg counterpart may trigger a false-positive 
+        on your antivirus.
+
+    <<<<<<<<<<<<<-- Added to SISSM.CFG -- >>>>>>>>>>>>>>>>>>
+
+    pidynbots.MaxPlayerToScaleEnemyCount 10    // copy from game.ini MaxPlayerToScaleEnemyCount
+
+
+    // You may specify optional reasons for '!ban', '!banid', '!kick' and '!kickid".
+    // for example:  !kick bob you have been idle too long
+    // You may also use the 'one word' automatic lookup from the table below such as:
+    //               !kick bob afk
+    //
+    picladmin.reason[0] "rush::Tactical servers require you concur with your squad BEFORE entering objective zone or exploding a cache."
+    picladmin.reason[1] "tk::Team kills pre-game/in-game, post-mortem body mutilations are prohibited."
+    picladmin.reason[2] "attack::Personal attacks against other players are prohibited."
+    picladmin.reason[3] "troll::Reason unspecified"
+    picladmin.reason[4] "sex::Gender discrimination, improper or explicit content in your comms, player name, profile or avatar"
+    picladmin.reason[5] "race::Racist behaviors strictly prohibited on this server"
+    picladmin.reason[6] "afk::Idle Timeout / AFK"
+    picladmin.reason[7] "tac::This is a Military-Tactical server.  Please work with your squad."
+    picladmin.reason[8] "tap::Tactical servers require you ask your squad BEFORE tapping, or stepping into the objective zone."
+
+    piwebgen.showUpTime                   1  // 1=show server "up" time & reason for last reboot
+    piwebgen.showLastReboot               0  // 1=show last reboot time & reason for last reboot
+    piwebgen.showCurrentTime              0  // 1=show current time
+
+    // following only applies for respawn mode (bBots=true)
+    //
+    pidynbots.enableDisconnAdj 1     // 1 to enable AI adj when a player has disconnected
+    pidynbots.enableConnAdj    1        // 1 to enable AI adj when a player has connected
+
+
+    <<<<<<<<<<<<<-- Recommended tweaks to SISSM.CFG -- >>>>>>>>>>>>>>>>>>
+
+    // this was '1200' - recommend increase to 1500 (because IDLE reboot was 1200)
+
+    pirebooter.rebootHungSec           1500                                    // 25*60 (20 min)
+
+    // added asterisk "*" prefix - which will triple-print to in-game text for better visibility
+
+    pirebooter.rebootWarning           "*Server restart at end of game - up in 60sec"
+    pirebooter.rebootDaily             "*Server will reboot shortly - up in 60sec"
+
+ 
+Beta 02.0 (0.2.0) xxxxxxxx
+
+    New Plugin pidynbots: change bot count/difficulty according to side/map/objective
+       See documentation:  doc/pidynbots.txt for details
+    Modified picladmin bot control commands to work with the new pidynbots plugin
+    New Plugin pitacnomic: enables tactical comms for no-microphone players using predefined shortcuts
+       See documentation:  doc/pitacnomic.txt for details
+    piantirush added rule/warnings mid-objective for cap-rushers (may be obsoleted by pitacnomic)
+    Added picladmin unpriv tac-comm commands: !ask, !prep, !warn for the no-microphone tactical players 
+    Any asterisk (*) prefixed to any "say" string will be sent 3x to screen for visibility
+    Rewritten appnote:  doc/wp_implementing_webstat.txt -- "Linux example of implementing web status"
+    Fixed a bug in picladmin !ban/!kick commands.  It now requires min 3 characters for partial match of the target.
+    Internal: Increased number of max plugins and max events to 32 each
+
+    <<<<<<<<<<<<<-- Added to SISSM.CFG - New features for PIANTIRUSH plugin:  -->>>>>>>>>>>>
+
+    // These display the extra "rules" about capture point rushing.  Comment out or set to
+    // null string ("") to disable.
+    //
+    piantirush.warnRusherCapturable   "*Rule: Ask Team BEFORE ENTERING cap zone"
+    piantirush.warnRusherDestructible "*Rule: Ask Team BEFORE EXPLODING cache"
+    piantirush.warnRusherDelaySec        20  // n-seconds after start of new objective to show these
+
+    <<<<<<<<<<<<<-- Added to SISSM.CFG - New features for PIANTIRUSH plugin:  -->>>>>>>>>>>>
+
+    // '!ask', '!prep', and '!warn' in-game prep text shortcuts to aid
+    // players and admins not willing to use microphone.  Respective
+    // shortcuts are !a, !p, and !w, for those that cannot type well.
+    // To enable these commands, add 'ask prep warn' to sissm.everyonecmds.
+    //
+    picladmin.prepBlow     "*Planting Explosives/Ready to Blow!"
+    picladmin.prepCapture  "*Testing Capture Point - Stepping On then Off"
+    picladmin.askBlow      "*EXPLODING cache in 5-sec, <NEGATIVE> to halt"
+    picladmin.askCapture   "*BREACHING in 5-sec, <NEGATIVE> to halt"
+    picladmin.warnRusher   "*Do NOT ENTER CAP/BLOW CACHE without ASKING TEAM"
+
+    <<<<<<<<<<<<<<-- Modifications to SISSM.CFG: -->>>>>>>>>>>
+
+    sissm.everyonecmds   "help version info ask prep warn"
+  
+    <<<<<<<<<<<<<<-- Added to SISSM.CFG - New Plugin PIDYNBOTS: -->>>>>>>>>>>
+
+    Please see doc/pidynbots.txt and doc/sissm_example.cfg
+
+    <<<<<<<<<<<<<<-- Added to SISSM.CFG - New Plugin PITACNOMIC: -->>>>>>>>>>>
+
+    Please see doc/pitacnomic.txt and doc/sissm_example.cfg
+
+
+Beta 01.3 (0.1.3) 20191027
+
+    This is a fast-turn bug hotfix release; also contains some experimental code
+    No changes to the sissm.cfg (sissm_example.cfg) from Beta 01.2 - please update the binary only
+
+    Fixed case sensitivity to !allowin name mask -- it is now case insensitive
+    Fixed corrupted SessionID in sissm.log (extra CR at the end)
+    Fixed a bug 'everyone' group could not execute picladmin commands allowed for 'everyone' in sissm.cfg
+
+    Modifying core to now track game progress; updated piwebgen to reflect new data
+    Piwebgen now shows map name on startup (no waiting for the map change after restart)
+
+Beta 01.2 (0.1.2) 20191026
+
+    Added "server nightly reboot" option (pirebooter)
+    Added Event & web display of game Session ID to faciliate playback and delayed game monitoring
+    Moved HTML tag filter from pigateway to piwebgen
+    Fixed error in sissm_example.cfg ("macros" -> "execute" in privilege list)
+    Macros are now directly executable (!x shotguns -> !shotguns), 
+        You may, then, associate each with privilege level,  by group, including 'everyone' group
+    Add 'unbanid' to admins command  - requires SteamID64 of the person you wish to unban
+    !bs (bot scaled) command is now polymorphic.  Admins can type !bs [max] or !bs [min max]
+        Example 1:  "!bs 40" sets scaling bot between botMinDefault to 40, 
+        Example 2:  "!bs 6 40" sets the same range 6 to 40
+    !bd (bot difficulty) is now floating point.  Instead of !bd 5 (defeault) you can say, e.g., !bd 5.234
+    !bs and !bf now supports soloplayer mode (friendly bots/wave respawn checkpoint variant when 'bbots true')
+    !ml and '!help list' now segments list output to 'say' box to support growing size of list
+    !bs default minimumenemies, and max bots allowed by admin command can be changed in sissm.cfg (picladmin)
+        Formerly these were hard-coded to 3 and 60, respectively
+    New document: doc/sissm_advanced_macros.txt - create your own admin commands, assign privilege
+
+    -----------------------------
+    Added to sissm.cfg
+
+    sissm.groupmcrs[0] ""
+    sissm.groupmcrs[1] ""
+    sissm.groupmcrs[2] ""
+    sissm.groupmcrs[3] ""
+    sissm.groupmcrs[4] ""
+    sissm.groupmcrs[5] ""
+    sissm.everyonemacros "contact rules"
+
+    pirebooter.rebootDailyHM             ""   // daily reboot format hh:mm:  "", "01:00", 23:35"
+    pirebooter.rebootWarning           "Server restart at end of game - up in 60sec"
+    pirebooter.rebootDaily             "Server will reboot shortly - up in 60sec"
+
+    piwebgen.showSessionID                1                   // 1=show replay SessionID, 0=none
+
+    picladmin.botMaxAllowed 60           // 60 max bots (2 waves of 30 bots when server is full)
+    picladmin.botMinDefault 6               // 6 min bots (2 waves of 3 bots when single player)
+ 
+    Please add 'unbanid' to existing sissm.groupcmds[0..5] if privileged for that group
+
+    ------------------------------
+
+
+
+    
+Beta 01.1 (0.1.1) 20191008 hotfix
+
+    Change QuickStart binary package for MSVC for "release" to minimize antivirus false-positive
+    Minor code fixes, updated build-procedure (doc/adv_build_windows.txt) to go with above
+    Changed GUID file reader so that Admins.txt, Moderators.txt, etc. may now embed in-line comment 
+
+Beta 01 (0.1.0) 20191006
+
+    Github resubmit to synchornize Alpha-29 to Beta-01
+
+Beta 01 (0.1.0) 20191006 (aka Alpha 29)
+
+    Major: Restructured for the new "auth" module that allows  multiple operator-defined priv groups 
+    Documentation: doc/sissmquickstart.txt has been updated due to the new AUTH module (easier for initial runs)
+    Documantation: doc/sissm_auth.txt added, describing the new AUTH system
+    Picladmin commmand name change: !m to !x (!macros to !execute) -- let your admins know!
+    Added "ads" timer-based in-game messaging with operator settable text and timing (frequency), max 10 texts
+    Added command "spam on|off" to enable/disable displaying of greetings, connections, rules and ads
+    Expand macros table to max 64 entries (formerly 10)
+    Added command "!info" to display current bot count/difficulty settings
+    Added optional operator-defined win/defeat messages to be shown at end of each round
+    pirebooter - add "hung server" detect to auto-reboot "95% stuck" conditions with ghost (non-existent) players in roster
+    Added command "!allowin" to temporarly open pigateway to let specified (or *) players join on full server
+    Modified pisoloplayers to allow setting # of player threshold for disabling CounterAttack (formerly hard-coded to  "1")
+    Added option to suppress player "Disconnected" message for n seconds after round/game end
+    Added command "!fast on|off" to enable/disable piantirush capture-timer-throttling interactively
+    Developers: add apiSay string limit clipping, add p2p plugin-to-plugin data exchange module, add auth system, add more EHs
+
+    Removed from sissm.cfg (deprecated):
+        sissm.adminListFilePath:  Replaced by new AUTH module
+
+    Added to sissm.cfg (see sissm_example.cfg)
+        sissm.rootname sissm.rootguids 
+        sissm.everyoneattr sissm.everyonecmds
+        sissm.groupname[0-5] sissm.groupattr[0-5] sissm.groupcmds[0-5] sissm.groupguid[0-5] 
+        pirebooter.rebootHungSec   
+        pisoloplayer.soloPlayerThreshold
+        pigreetings.showAds pigreetings.adsDelay pigreetings.adsInterval pigreetings.serverads[0-9]
+        pigateway.allowInWindowTimeSec 
+
+Alpha 28 (0.0.28) 20190915
+
+    Application changes:
+
+    Exploratory hotfix to some systems (Windows) improperly parsing listplayers 
+
+Alpha 27 (0.0.27) 20190914
+
+    Application changes:
+
+    Fixed !kf command picladmin  
+    Fixed "!" prefix override to a custom string for picladmin command 
+    Exploratory fix of incorrect connect-disconnect greetings
+    Fixed picladmin chat intercept for both global & team chats (some admins were using team chats)
+
+    Example Config or Documentation Changes:
+
+    doc/issm_example.cfg: improved description in picladmin response string usage
+    doc/pigateway.txt: improved description of how to use bad words filter
+   
+
+Alpha 26 (0.0.26) 20190911
+
+    Application changes:
+
+    Pigreetings module can now disable connect, connect-admin, disconnect announcements individually.
+    Fixed bug in picladmin that was crashing SISSM if an non-existent macro was specified
+    Added some safety code to prevent crashes around invalid scenarios that should never occur
+
+Alpha 25 (0.0.25) 20190908
+
+    Application changes:
+   
+    Fixed a bug in picladmin that was crashing SISSM if you were participating ISS 1.4 CTE.
+        Everyone must upgrade SISSM to the latest branch when official ISS 1.4 is released from NWI!
+    Added "!ml" or "!macroslist" command    
+    Added capability to announce connecting player as "admin" if enabled (pigreetings).
+
+    Example Config or Documentation Changes:
+
+    Added string variable: pigreetings.connnectedasadmin.
+
+Alpha 24 (0.0.24) 20190904
+
+    Application changes:
+
+    Two variants of sissm executables are released for Linux and Windows (total 4 files) - the new 
+        sissm_restricted is same as the origial counterpart except "reboot by script" is disabled.
+
+    Cleanup RCON driver timing - re-wrote receive timeout loop for speed without compromising reliability.
+    Added gmp, rcon, and macro commands to picladmin plugin.
+
+    Example Config or Documentation changes:
+
+    Added table of user-defined macros for picladmin:  see picladmin.macros[*]    
+    General grammar/spelling cleanup 
+    Update procedures to upcoming ISS game version 1.4
+
+
+Alpha 23 (0.0.23) 20190902
+
+    Application changes:
+
+    Compatible and tested against CTE-1.4 Patch-1 Linux (not tested under CTE-1.4 Patch-1 Windows)
+    Completed/enabled PICLADMIN - allows admin-assistants to issue command through in-game chat
+    Added pre-start diagnostics that highlights ./cfg error due to typos, etc.
+        See http://cassandra.confluvium.info/sissm/ "Command-Line Admin Plugin" for details.
+    Clear up misleading "Try to open games.log" message, which now shows oly if there is an error
+    Removed "bad names" profanity list from source code - this is now a separate editable .txt file.
+    Added "no parameter" sissm launch for the mouse-click users - if sissm_default.cfg exists in the same 
+        folder and no launch parameter is specified, it will use it.
+
+    Example Config or Documentation changes:
+
+    See below: "SISSM.CFG Upgrading from Alpha22 to Alpha23" 
+    Changed sissm.cfg example to use "\" instead of "/" for Windows paths (thanks to tarAn for pointing this out)
+    New Advanced Setup note: Runing Multiple Servers from a Same Folder; "SAW" users should read this
+        if you are running multiple instances of game servers on the same machine from the same folder.
+
+Alpha 22 (0.0.22) 20190828
+
+    Fix template sissm.cfg - rebooter is now disabled  by default
+    Fix map update
+    Added "" option for all apiSay - server operator may run quiet on selected prompts
+    Added sigterm handler and a new event handler to gracefully exit sissm leaving game in a playable state
+    Bug fix: empty string handling ("") in cfg data read now works correctly
+    Enhanced localization - brought out more printed strings to .cfg file
+    Tested to work:  sissm.RestartScript "taskkill /IM InsurgencyServer-Win64-Shipping.exe /F"
+    Changes to sissm.cfg - see attached section below if you are upgrading to Alpha 22
+
+Alpha 21 (0.0.21) 20190826
+
+    Reshuffled order of init so that admin list and gamelog reads can easily be verified 
+    Create "starter" distribution template sissm.cfg
+
+Alpha 20 (0.0.20) 20190825
+ 
+    First Closed Alpha
+    Win version: Stabilized start on dead game server
+    Win version: Stabilized game server dying mid run
+
+=========================================================================================
+
+////////////////////////////////
+////// SISSM.CFG Upgrading from Alpha23 to Alpha24
+//////
+////// Please check to make sure these entries are added to 
+////// the correct sections.  Depending on previous version# you may
+////// already have some of these in your existing .cfg file.
+////////////////////////////////
+
+
+Add to picladmin block:
+
+picladmin.macros[0]   "easy::say hello::gamemodeproperty minimumenemies 3::gamemodeproperty maximumenemies 3"
+picladmin.macros[1]   "hard::say bonjour::gamemodeproperty minimumenemies 12::gamemodeproperty maximumenemies 12"
+picladmin.macros[2]   "pistols::travel Ministry?Scenario=Scenario_Ministry_Checkpoint_Security?Mutators=PistolsOnly"
+picladmin.macros[3]   "normal::travel Ministry?Scenario=Scenario_Ministry_Checkpoint_Security?Mutators=none"
+picladmin.macros[4]   ""
+picladmin.macros[5]   ""
+picladmin.macros[6]   ""
+picladmin.macros[7]   ""
+picladmin.macros[8]   ""
+picladmin.macros[9]   ""
+
+
+////////////////////////////////
+////// SISSM.CFG Upgrading from Alpha22 to Alpha23
+//////
+////// Please check to make sure these entries are added to 
+////// the correct sections.  Depending on previous version# you may
+////// already have some of these in your existing .cfg file.
+///////////////////////////////
+
+
+1.  picladmin block:  Changed all default fun-responses to be shorter (fits on one line)
+
+2.  Added bad words file path variable.  Simply add profanity words here, one word per line.
+A (clean) example badwords.txt file is in the release package.  This is used to compare against
+connecting player name.  If the bad-name plugin is enabled, the user is kicked.  To obtain
+the horrific version of badwords.txt used by the author of this package, contact me via 
+Steam ("shroeder_lvb"), Discord "Shchroeder#7524", or email: schroeder-lvb@outlook.com).
+
+sissm.BadWordsFilePath     "/home/ins/scripts/badwords.txt"
+
+
+
+////////////////////////////////
+////// SISSM.CFG Upgrading to Alpha22
+//////
+////// Please check to make sure these entries are added to 
+////// the correct sections.  Depending on previous version# you may
+////// already have some of these in your existing .cfg file.
+///////////////////////////////
+
+
+sissm.adminListFilePath                 "/home/ins/iss/Insurgency/Config/Server/Admins.txt"
+// sissm.adminListFilePath  "C:/Program Files (x86)/Steam/steamapps/common/sandstorm_server/Insurgency/Config/Server/Admins.txt"
+
+sissm.gracefulExit                    1        // 0=immediate exit, 1=graceful exit of sissm
+
+pirebooter.rebootWarning           "Server restart at end of game - up in 60sec"
+
+pigreetings.incognitoGUID   "76561100000000001 76561100000000002 76561100000000003"
+pigreetings.connected              "connected"
+pigreetings.disconnected           "disconnected"
+
+pisoloplayer.soloWarning       "Counterattack disabled for a single player"
+pisoloplayer.multiWarning      ""        // keep this 'quiet' (too much spam on screen)!
+// pisoloplayer.multiWarning   "Counterattack enabled for multi-players"
+
+
+
+////// Please add or correct TYPOS that may be in your pprevious Alhpa release
+////// Your version may be "piwebgenConfig" which should be "piwebgen"
+///////////////////////////////
+
+piwebgen.hyperlinkFormat               1               // 0=text 1=hyperlink list of players
+piwebgen.autoRefreshHeader            1              // 1=generates html auto-refresh header
+piwebgen.commTimeoutSec             120     // #sec of rcon fail before failure is indicated
+

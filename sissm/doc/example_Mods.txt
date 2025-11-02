@@ -1,0 +1,9 @@
+# Pruefstand 7
+# https://insurgencysandstorm.mod.io/pruefstand-72
+120200
+
+MountainPass
+# https://insurgencysandstorm.mod.io/mountainpass
+109375
+
+

@@ -1,0 +1,112 @@
+Simple Insurgency Sandstorm Server Manager - SISSM
+PIGATEWAY Plugin
+JS Schroeder -- last updated:  2019.10.06
+
+PIGATEWAY is a plugin that watches who connects to your server.  This plugin manages
+Priority ports (reserved ports) so admins and privileged users can join on a full server.  
+It is also capable of auto-kicking profanity-named players upon attempted connection.
+
+=====================
+Enabling Admin Ports
+=====================
+
+The admin port algorithm used by pigateway plugin works by setting parameters in three places:
+
+1.  "Advertised" ports - this is what is in your game launch "traveler" parameter, for example
+
+"Town?Scenario=Scenario_Hideout_Checkpoint_Security?MaxPlayers=8"
+
+This is what you want to allow 'public' to see, and use.
+
+2.  "Allocated" ports - this is controlled by UE4.  You set this in the Engine.ini
+file while the server is not running (otherwise, it will overwrite your changes).  Engine.ini
+location can vary but generally they are like so:
+
+Windows (example):
+C:\Program Files (x86)\Steam\steamapps\common\sandstorm_server\Insurgency\Saved\Config\WindowsServer\Engine.ini
+Linux (example):
+/home/ins/ss/Insurgency/Saved/Config/LinuxServer/Engine.ini
+
+Edit the Engine.ini file to add this to end.
+
+[SystemSettings]
+net.MaxPlayersOverride=12
+
+This enables up to 12 people to join the server, even though the game browser only shows 8.
+
+3.  Sissm.cfg file - To keep regular players from joining to your slots 9 through 12, 
+you tell SISSM to watch for that.  In yous sissm.cfg file set:
+
+pigateway.pluginState                 1                 // 1=enable plugin, 0=disable plugin
+pigateway.firstAdminSlotNo            9        // first open slot# non-admins will be kicked
+
+This tells SISSM that everything above slot 9 is for Admins only.  When the 9th player tries to connect,
+the SISSM auth module will check if the user is a member of a group with attribute 'priport' 
+is specified (note: this includes the root group members).  If the player is not on the list, s/he is 
+kicked with the message "Server_Full" (and it realy is, as indicated in the game browser).
+
+What this also means is that when an Admin sees 8/8 full on the game browser, s/he may be able to join.
+Up to 4 additional ports can be taken by additional admins.
+
+Adjust the numbers to meet your needs.
+
+=====================
+Enabling Bad Name Kick
+=====================
+
+If you enable the badname kick option, SISSM looks up the new connecting player name
+and compares it against the 'profanity name' list.  Players with profanity embedded
+in their name will be kicked by SISSM.
+
+Currently there is no plan to incorporate content filtering for in-game chat.  This is why:
+
+a.  The game itself is profanity laced by the manufacturer - in voice announcement 
+    as well as "tips" in opening page.  NWI seems to have future plans for profanity 
+    filter (unconfirmed).
+b.  Players naming themselves w/ profanity or vulgar sexual references are likely 
+    to exhibit problematic behavior to the community.
+c.  For tactical servers it is important to address players by posted name.  It is not
+    appropriate to call someone with profanity in name, or racist or sexual references.
+
+Here are the 3 steps to make the bad names filtering to work:
+
+1.  Create your own badwords.txt
+
+Create a file 'badwords.txt' somewhere on your drive that can be read by sissm at startup.
+The bad words should be entered one word per line, in lower case.  Comments are NOT
+supported:
+
+-----------------
+fudge
+shoot
+bucko
+jeepers
+-----------------
+
+2.  Point your sissm.cfg file to the bad words list you created, example:
+
+Windows (example):
+sissm.BadWordsFilePath     "/home/ins/sissm/badwords.txt"
+ 
+Linux (example):
+sissm.BadWordsFilePath     "C:\text\badwords.txt"
+
+
+3. Turn on the badword filter on sissm.cfg 
+
+pigateway.pluginState                 1                 // 1=enable plugin, 0=disable plugin
+pigateway.enableBadNameFilter         1        // 1=enable kick on profanity names 0=disable
+
+This feature merely kicks bad-named players without specifying the reason.  This is done
+intentionally to discourage people from modiifying one or two letters in their name
+to circumvent the algorithm.
+
+4.  Restart SISSM.  
+
+You should see, in the first few lines of log, something like this::
+
+    2019-09-13 09:37:45::api::BadWords list 121 words from file /home/ins/scripts/badwords.txt
+
+If you see values like "0" or "-1", check your file path in sissm.cfg.
+
+

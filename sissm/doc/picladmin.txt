@@ -1,0 +1,336 @@
+Simple Insurgency Sandstorm Server Manager - SISSM
+PICLADMIN - User's Manual for the Assistant Administrators
+JS Schroeder -- last updated:  2024.04.27 
+
+PICLADMIN (Plugin Command-Line Admin) plugin allows admin commands to be
+executed through the in-game chat interface.  The server operator set up
+the list of priviledged users, as well as the command prefix.
+
+Not all commands will work for all users due to AUTH privilege levels --
+this is site configuration dependent.  All commands are available for 
+the AUTH root users.
+
+Default command prefix is "!".  You issue PICLADMIN commands by typing
+commands like:  !ban robert.  The server owner may change the prefix
+to use something other than "!", for example, "amanda".  If this
+is the case you issue a command like:  "amanda ban robert".
+
+
+
+/////////////////////////////////////////////////
+////////// Server Admin In-Game Command Reference
+/////////////////////////////////////////////////
+
+
+version (v) [sissm]
+Show SISSM version number
+Examples:  !v sissm, !v
+
+========================
+
+help (help) [command]
+Show list of available commands
+Examples:  !help list, !help banid
+
+========================
+
+botfixed (bf) [0-120]
+Set fixed bot count regardless of how many players are in game.
+Examples:  !bf 20, !botfixed 50
+
+([SISSM1.2] !bf 0 is now allowed for testing)
+========================
+
+botscaled (bs) {2-59} [2-120]
+Set bot count in scaling mode - if two numbers are specified min:max
+range is set; one number, only max limit is set.
+Examples:  !bs 36, !botscaled 32, !bs 4 36
+
+========================
+
+botreset (br)
+Set bot count changed by !bs or !bf back to default 
+Examples:  !botreset, !br
+
+========================
+
+botdifficulty (bd) [0-10]
+Change bot difficulty level -- 0=easy, 10=difficult
+Exmaples:  !bd 5, !botdifficulty 10
+
+========================
+
+killfeed (kf) on|ff
+Turn on/off killfeed
+Examples:  !kf off, !killfeed on
+
+========================
+
+friendlyfire (ff) on|off
+Enable/disable friendly-fire
+Examples:  !ff off, !friendlyfire on
+
+========================
+
+roundrestart (rr) [now]
+Restart current round
+Examples:  !rr now, !roundrestart now
+
+========================
+
+reboot (reboot) [now|eog|eor|cancel]
+Reboot the server (everyone will be disconnected!) now, end of game, end of round
+If a reboot is schedule it can be cancelled.
+Example:  !reboot now
+
+========================
+
+ban (b) [partial-name] {reason | reason-code}
+Perm-ban a player by partial name
+Examples:  !b rob, !ban ert, !ban robert team kills not allowed, !ban rob tk
+
+========================
+
+banid (bi) [SteamID64] {reason | reason-code}
+Perm-ban a player by SteamID64 - this can be done after a player has signed off.
+Examples:  !bi 76561123123123123, !banid 76561123123123123, 
+           !bi 76561123123123123 arguing with the admin
+
+========================
+
+bant (bt) [partial-name] {reason | reason-code}
+Temp-ban a player by partial name
+Examples:  !bt rob, !bant ert, !bant robert team kills not allowed, !bant rob tk
+
+========================
+
+banidt (bit) [SteamID64] {reason | reason-code}
+Temp-ban a player by SteamID64 - this can be done after a player has signed off.
+Examples:  !bit 76561123123123123, !banidt 76561123123123123, 
+Examples:  !bit 76561123123123123 arguing with the admin
+
+========================
+
+unbanid (ub) [SteamID64]
+Unban a player by SteamID64
+Examples:  !ub 76561123123123123, !unbanid 76561123123123123
+
+========================
+
+kick (k) [partial-name] {reason | reason-code}
+Kick a player by partial name
+Examples:  !k ober, !kick robert, !kick robert rush, 
+Examples:  !kick robert exploding cache without your team
+
+========================
+
+kickid (ki) [SteamID64]
+Kick a player by SteamID64 
+Example:  !ki 76561123123123123, !kickid 76561123123123123
+
+========================
+
+rcon (rcon) [valid rcon command string]
+Send a rcon message
+Example:  !rcon say hello
+
+========================
+
+gamemodeproperty (gmp) [property name {new_value}]
+Set or read gamemodeproperties (vars)
+Example:  !gamemodeproperty minimumenemies 3, !gmp maximumenemies
+
+========================
+
+execute (x) [macroname]
+Execute a macro of rcon command sequences specified in sissm.cfg file
+Example:  !x easymode, !execute ministry-pistolsonly
+
+========================
+
+macroslist (ml)
+Display a list of available macros configured by your administrator
+Example:  !ml, !macroslist
+
+========================
+
+info (info)
+Display current bot count and difficulty
+Example:  !info
+
+========================
+
+spam (sp) on|off
+Turns on/off in-game display of server greetings, rules, ads, and player connection 
+Example:  !spam on, !sp off
+
+========================
+
+fast (fast) on|off
+Turns on/off piantirush capture-rate throttling algorithm
+Example:  !fast on, !fast off
+
+========================
+
+allowin (al) { [partial-name] | * }
+Allows non-admin players to join a full server for short window of time (def 120 seconds).
+Partial name or * may be specified for any player names.  If no parameter is specified 
+the join window will close immediately.
+Example:  !allowin jullie, !allowin *, !allowin
+
+========================
+
+maplist (maplist)
+Lists available maps installed on server.
+Note: for this feature to work, a specific mapcycle.txt format with metatag is required!
+Example:  !maplist
+
+=========================
+
+mutlist (mutlist)
+Lists available mutators availalbe on the server.
+Note: for this feature to work, sissm.cfg must specify list of allowed mutators.
+Example:  !mutlist
+
+=========================
+
+mutactive (mutactive)
+Lists currently active mutators 
+Example:  !mutactive
+
+========================
+
+map (map) [mapname] {gamemode} {ins} {night} {mut1, mut2, mut3...}
+Immediately change map 
+Partial match for map name is accepted, and the first matched map is activated
+Note: for this feature to work, a specific mapcycle.txt format with metatag is required!
+Examples:  !map minist, !map ministry ins, !map minis night, !map inist night ins
+
+[SISSM 1.2]
+Note gamemode and mutators (mut1, mut2, mut3...) are supported.  If no mutator
+are used, specify 'none'.  gamemode is extracted from fully-specified mapcycle file
+(typically checkpoint, checkpointhardcore, etc.)
+Examples:  !map ministry checkpoint ins night shotguns 
+Examples:  !map ministry none
+
+========================
+
+contact (contact)
+Display contact information for the server
+Example:  !contact
+
+========================
+
+rules (rules)
+Display server rules
+Example:  !rules
+
+========================
+
+lock (lk) [on|off|perm|clan]
+Root/Admin command to reserve the server for access list players ("priport" attribute)
+When lock is "on" only priort players (admins, etc.) can sign in, unlocks on map change.
+When lock is "perm" server is locked until "lock off", or when server becomes empty
+Examples:  !lock on, !lock off, !lock perm, !lock clan
+
+========================
+
+clan (cl) [clear][add][list] {player ID or partial name/tag}
+Root/Admin command to temp reserve the server for ad-hoc list of players "clan"
+Examples:  !clan clear, !cl clear
+Examples:  !clan add alice bob charlie
+Examples:  !clan add [MYCLAN]
+Examples:  !clan add 76561111111111111 76562222222222222 76563333333333333
+Examples:  !clan list, !cl list
+
+Note "!lock clan" is automatic after the first "!clan add"
+To disable clan lock, "!lock off"
+
+========================
+
+wax (wax) [on|off|perm]
+Admin/Moderator command to require typing breach/blow code before action, or else
+the player is kicked (if autokick is on).
+On, Off, Perm actions have 2 objective delay to come into effect.
+On: means wax will stay active until map change, or when server goes idle.
+Perm: means wax will stay active until turned off, or server goes idle.
+Examples:  !wax on, !wax off, !wax perm
+
+========================
+
+strict (sr) 
+This allows unpriviledge players to "!wax on" 
+Can only be turned off by admins/moderators with !wax command privilege.
+The command will cancel on map change, or when server goes idle.
+Examples:  !strict, !sr
+
+========================
+
+nowait (nw)
+Accelerates antirush timers so that players may immediately enter territorial zone or explode the cache
+Examples:  !nowait, !nw
+
+========================
+
+nokick (nk)
+Temporarily exempts player(s) from antirush violation kick for 15 seconds
+Useful for training new players not yet aware of antirush auto-kick
+Useful for protecting commander from anti-rush auto-kick, when accidentally exploding the cache via the support call
+Examples:  !nokick, !nk
+
+========================
+
+endgame (eg) {now}
+Immediately end the game in progress, to map voting menu (if enabled)
+Examples:  !endgame now, !eg now
+
+========================
+
+dev (dev) [test-var] {int value}
+For develpers only - enabled only for the ROOT connection.  Reads/writes to 'test-var' 
+Examples:  !dev nokick 1, !dev nokick 0, !dev humans 8, !dev humans 0
+
+========================
+
+reinit (reinit)
+Root user command to re-read admins (and other priv) list, and the badwords list without
+restarting SISSM.
+Note this affects SISSM privileges only, not the in-game admin screen privilege. 
+Example:  Edit Admins.txt witn your text editor, then: "!reinit"
+
+////////// Appendix:  Kick/Ban Reasons and Reason-codes
+
+With exception of trolls, it is generally a good idea to include the reason
+you are kicking or banning a player.  You may suffix your own sentence
+like this:
+
+!ban alice intentionally throwing grenades at your team 
+!kick bob rushing capture points
+
+Depending on your server, a single word 'reason code' for kicks and bans may be  
+attached, and it will be displayed on subject player screen.  These are default
+SISSM reason codes:
+
+rush         Tactical servers require you concur with your squad BEFORE entering objective zone or exploding a cache.
+tk           Team kills pre-game/in-game, post-mortem body mutilations are prohibited.
+attack       Personal attacks against other players are prohibited.
+troll        Reason unspecified
+sex          Gender discrimination, improper or explicit content in your comms, player name, profile or avatar
+race         Racist behaviors strictly prohibited on this server
+afk          Idle Timeout / AFK
+tac          This is a Military-Tactical server. Please work with your squad.
+
+Example:
+
+!ban alice tk
+!kick bob rush
+
+
+////////// Appendix:  Commands Added by Your Server Owner
+
+In SISSM your server owner may add new commands not listed here.  These are done through defining a macro
+(sequence of RCON commands) and setting the commmand to the appropriate admin level.
+
+Contact your server owner for any server customizations.
+
+
