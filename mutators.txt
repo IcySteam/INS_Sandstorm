@@ -11,7 +11,7 @@ Mutator combos:
 (FastMovement)
 (HeadshotOnly)
 (Frenzy,AllYouCanEat)
-(Frenzy,Vampirism,AllYouCanEat,FullyLoaded)
+(Frenzy,Vampirism,AllYouCanEat,MoreAmmo)
 (Frenzy,BulletSponge,PistolsOnly,Ultralethal)
 (Frenzy,BulletSponge,ShotgunsOnly,Ultralethal)
 (Frenzy,Vampirism?MaxHealth=IED_DAMAGE,Poor) (knife fight against frenzy enemies)
