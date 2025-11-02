@@ -2,7 +2,7 @@ Approved & config-FRIENDLY mutators (command line mutator modifications NOT work
 
 Default mutator properties:
 Frenzy: Vampirism?MaxHealth=300
-Co-Op: Vampirism?MaxHealth=100
+Co-Op: Vampirism?MaxHealth=125
 
 Mutator combos:
 (AntiMaterielRiflesOnly,NoDrops,Vampirism), bBotsUseHumanLoadouts=False
