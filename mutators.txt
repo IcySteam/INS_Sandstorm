@@ -15,7 +15,7 @@ Mutator combos:
 (Frenzy,BulletSponge,PistolsOnly,Ultralethal)
 (Frenzy,BulletSponge,ShotgunsOnly,Ultralethal)
 (Frenzy,Vampirism?MaxHealth=IED_DAMAGE,Poor) (knife fight against frenzy enemies)
-(Vampirism,Poor,SoldierOfFortune)
+(Vampirism,Poor), SupplyGainFrequency=250
 (HotPotato,FastMovement)
 (HotPotato,Vampirism?MaxHealth=300)
 (PistolsOnly,Ultralethal), bBotsUseHumanLoadouts=True (need mod to increase number of spare mags otherwise limited to 4 for heavy carrier)
