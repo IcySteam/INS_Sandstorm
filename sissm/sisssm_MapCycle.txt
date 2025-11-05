@@ -156,7 +156,7 @@
 (Scenario="Scenario_Prison_Survival",Mode="Survival",Lighting="Day")
 (Scenario="Scenario_Prison_Survival",Mode="Survival",Lighting="Night")
 
-#SISSM.mapname=LastLight
+#SISSM.mapname=Lastlight
 (Scenario="Scenario_LastLight_Checkpoint_Security",Mode="Checkpoint",Lighting="Day")
 (Scenario="Scenario_LastLight_Checkpoint_Insurgents",Mode="Checkpoint",Lighting="Day")
 (Scenario="Scenario_LastLight_Checkpoint_Security",Mode="Checkpoint",Lighting="Night")
