@@ -12,6 +12,7 @@ Mutator combos:
 (BulletSponge)
 (FastMovement)
 (HeadshotOnly)
+(LockedAim)
 (Frenzy)
 (Frenzy,AllYouCanEat,MoreAmmo)
 (Frenzy,Vampirism,HeadshotOnly,AllYouCanEat,MoreAmmo)
@@ -24,7 +25,7 @@ Mutator combos:
 (Ultralethal)
 (BudgetAntiquing), bBotsUseHumanLoadouts=True
 
-Optional mutators (to be used to mutator combos): 
+Optional mutators (to be used with mutator combos): 
 SlowMovement (with SlowCaptureTimes via Game.ini config)
 
 Config-UNFRIENDLY mutators:
