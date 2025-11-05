@@ -8,3 +8,4 @@
 1436628 ; Inspect Weapon
 5081003 ; View Profile Button
 2947266 ; Faster Reloads And More
+156146 ; Round Progress
