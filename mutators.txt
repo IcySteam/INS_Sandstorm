@@ -1,7 +1,7 @@
 Approved & config-FRIENDLY mutators (command line mutator modifications NOT working with Streamline servers as of 1.4):
 
 Default mutator properties:
-Frenzy: Vampirism?MaxHealth=500
+Frenzy: Vampirism?MaxHealth=1000
 Co-Op: Vampirism?MaxHealth=100
 
 Mutator combos:
