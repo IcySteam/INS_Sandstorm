@@ -20,7 +20,7 @@ Mutator combos:
 (Poor,Vampirism), SupplyGainFrequency=300
 (HotPotato,FastMovement)
 (HotPotato,Vampirism?MaxHealth=300)
-(PistolsOnly,Ultralethal), bBotsUseHumanLoadouts=False
+(PistolsOnly,Ultralethal), bBotsUseHumanLoadouts=True
 (Ultralethal)
 
 Optional mutators (to be used with mutator combos): 
