@@ -11,7 +11,6 @@ Mutator combos:
 (PistolsOnly,Vampirism), bBotsUseHumanLoadouts=False
 (BudgetAntiquing,Vampirism), bBotsUseHumanLoadouts=False
 (FastMovement,BulletSponge,LockedAim)
-(HeadshotOnly)
 (Frenzy)
 (Frenzy,AllYouCanEat,MoreAmmo)
 (Frenzy,HeadshotOnly,Vampirism,AllYouCanEat,MoreAmmo)
@@ -26,6 +25,7 @@ Mutator combos:
 Optional mutators (to be used with mutator combos): 
 SlowMovement (with SlowCaptureTimes via Game.ini config)
 MoreAmmo (when bot count is configured high or HeadshotOnly is active)
+NoDrop (with weapon limiting mutators)
 
 Config-UNFRIENDLY mutators:
 Frenzy: as of 1.19, MinMaxEnemies and MaxPlayersToScaleEnemyCount not working, default number of enemies spawn regardless; need to use gamemodeproperty RCon command every time before round starts to fix (or just use SISSM); default enemy count: 8 - 40, increase/decrease enemies accordingly with mutators
