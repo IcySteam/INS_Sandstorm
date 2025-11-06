@@ -1,1 +1,11 @@
-
+98373 ; More Ammo Mutator
+549785 ; Map Vote Labels
+98145 ; No Restricted Area Mutator
+135290 ; Scale Bot Amount
+98685 ; Jump Shoot
+4031798 ; Extended Fire Support Class Loadout
+4324404 ; NoBoundaries
+1436628 ; Inspect Weapon
+5081003 ; View Profile Button
+2947266 ; Faster Reloads And More
+156146 ; Round Progress
