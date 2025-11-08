@@ -13,3 +13,8 @@
 3493292 ; FPLegs Revived
 3765590 ; Flashlight Shadows
 1560773 ; SpeedMod
+757225 ; DumbFrenzy
+761350 ; WW2only
+101454 ; ULTRA Bullet Sponge
+144626 ; Double Health
+2862675 ; Headshot & Health Modifiers

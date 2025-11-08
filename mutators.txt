@@ -1,7 +1,7 @@
 Approved & config-FRIENDLY mutators (command line mutator modifications NOT working with Streamline servers as of 1.4):
 
 Default mutator properties:
-Frenzy: Vampirism?MaxHealth=1000
+Frenzy: Vampirism?MaxHealth=500
 Co-Op: Vampirism?MaxHealth=100
 
 Mutator combos:
@@ -9,12 +9,15 @@ Mutator combos:
 (BoltActionsOnly,Vampirism), bBotsUseHumanLoadouts=False
 (ShotgunsOnly,Vampirism), bBotsUseHumanLoadouts=False
 (PistolsOnly,Vampirism), bBotsUseHumanLoadouts=False
-(BudgetAntiquing,Vampirism), bBotsUseHumanLoadouts=False
+(WW2only,Vampirism), bBotsUseHumanLoadouts=False
 (FastMovement,BulletSponge,LockedAim)
 (Frenzy)
 (Frenzy,AllYouCanEat,MoreAmmo)
-(Frenzy,HeadshotOnly,Vampirism,AllYouCanEat,MoreAmmo)
-(Frenzy,BoltActionsOnly,Ultralethal,BulletSponge,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
+(Frenzy,HealthyFrenzy,HS_5x,DoublePlayerHealth,AllYouCanEat,MoreAmmo)
+(Frenzy,HeadshotOnly,Vampirism?MaxHealth=1000,AllYouCanEat,MoreAmmo)
+(Frenzy,HS_3x,PistolsOnly,Vampirism?MaxHealth=500,MoreAmmo)
+(Frenzy,BoltActionsOnly,Ultralethal,ULTRABulletSponge,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
+(DumbFrenzy,BoltActionsOnly,ULTRABulletSponge,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
 (Frenzy,Vampirism?MaxHealth=IED_DAMAGE,Poor) (knife fight against frenzy enemies)
 (Poor,Vampirism), SupplyGainFrequency=300
 (HotPotato,FastMovement)
