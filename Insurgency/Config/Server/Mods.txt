@@ -18,3 +18,4 @@
 101454 ; ULTRA Bullet Sponge
 144626 ; Double Health
 2862675 ; Headshot & Health Modifiers
+1542065 ; Frenzy Revived
