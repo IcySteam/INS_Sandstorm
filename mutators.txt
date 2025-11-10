@@ -10,14 +10,16 @@ Mutator combos:
 (ShotgunsOnly,Vampirism), bBotsUseHumanLoadouts=False
 (PistolsOnly,Vampirism), bBotsUseHumanLoadouts=False
 (WW2only,Vampirism), bBotsUseHumanLoadouts=False
+(GunFrenzy,Vampirism)
 (FastMovement,BulletSponge,LockedAim)
 (Frenzy)
 (Frenzy,AllYouCanEat,MoreAmmo)
 (ChadTeam666Night,MoreAmmo)
-(FrenzyRevived,Vampirism?MaxHealth=300,AllYouCanEat,MoreAmmo)
+(FrenzyRevived,Vampirism,AllYouCanEat,MoreAmmo)
+(Frenzy,GunFrenzy,HS_15x,Vampirism,MoreAmmo)
 (Frenzy,HealthyFrenzy,HS_5x,DoublePlayerHealth,AllYouCanEat,MoreAmmo)
-(Frenzy,HeadshotOnly,Vampirism?MaxHealth=1000,AllYouCanEat,MoreAmmo)
-(Frenzy,HS_3x,PistolsOnly,Vampirism?MaxHealth=300,MoreAmmo)
+(Frenzy,HeadshotOnly,HS_15x,Vampirism,AllYouCanEat,MoreAmmo)
+(Frenzy,HS_15x,PistolsOnly,Vampirism,MoreAmmo)
 (Frenzy,BoltActionsOnly,Ultralethal,ULTRABulletSponge,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
 (DumbFrenzy,BoltActionsOnly,ULTRABulletSponge,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
 (Frenzy,Vampirism?MaxHealth=IED_DAMAGE,Poor) (knife fight against frenzy enemies)

@@ -19,3 +19,5 @@
 144626 ; Double Health
 2862675 ; Headshot & Health Modifiers
 1542065 ; Frenzy Revived
+3732815 ; VR Utilities
+1778404 ; Gun Frenzy (Loadout)
