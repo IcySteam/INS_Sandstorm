@@ -37,7 +37,6 @@
 (Scenario="Scenario_Forest_Checkpoint_Insurgents",Mode="Checkpoint",Lighting="Day")
 (Scenario="Scenario_Forest_Checkpoint_Security",Mode="Checkpoint",Lighting="Day")
 
-
 (Scenario="Scenario_Crossing_Checkpoint_Security",Mode="Checkpoint",Lighting="Night")
 (Scenario="Scenario_Crossing_Checkpoint_Security",Mode="Checkpoint",Lighting="Night")
 (Scenario="Scenario_Farmhouse_Checkpoint_Security",Mode="Checkpoint",Lighting="Night")

@@ -154,7 +154,6 @@
 (Scenario="Scenario_Forest_Checkpoint_Security",Mode="Checkpoint",Options="Mutators=GunFrenzy,Vampirism?Label=Gun Game",Lighting="Day")
 (Scenario="Scenario_Forest_Checkpoint_Insurgents",Mode="Checkpoint",Options="Mutators=GunFrenzy,Vampirism?Label=Gun Game",Lighting="Day")
 
-
 (Scenario="Scenario_Farmhouse_Checkpoint_Security",Mode="Checkpoint",Options="Mutators=PistolsOnly,Ultralethal?Label=One Tap, Yaga",Lighting="Night")
 (Scenario="Scenario_Farmhouse_Checkpoint_Insurgents",Mode="Checkpoint",Options="Mutators=PistolsOnly,Ultralethal?Label=One Tap, Yaga",Lighting="Night")
 (Scenario="Scenario_Refinery_Checkpoint_Insurgents",Mode="Checkpoint",Options="Mutators=PistolsOnly,Ultralethal?Label=One Tap, Yaga",Lighting="Night")
