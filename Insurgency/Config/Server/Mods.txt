@@ -9,6 +9,7 @@
 5081003 ; View Profile Button
 2947266 ; Faster Reloads And More
 156146 ; Round Progress
+2153131 ; CheckpointCheckpoints
 1476698 ; SloMo
 3493292 ; FPLegs Revived
 3765590 ; Flashlight Shadows
