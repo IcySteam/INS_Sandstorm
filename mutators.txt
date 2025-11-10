@@ -1,7 +1,7 @@
 Approved & config-FRIENDLY mutators:
 
 Default mutator properties:
-Frenzy: Vampirism?MaxHealth=500
+Frenzy: Vampirism?MaxHealth=300
 Co-Op: Vampirism?MaxHealth=100
 
 Mutator combos:
@@ -14,10 +14,10 @@ Mutator combos:
 (Frenzy)
 (Frenzy,AllYouCanEat,MoreAmmo)
 (ChadTeam666Night,MoreAmmo)
-(FrenzyRevived,Vampirism?MaxHealth=500,AllYouCanEat,MoreAmmo)
+(FrenzyRevived,Vampirism?MaxHealth=300,AllYouCanEat,MoreAmmo)
 (Frenzy,HealthyFrenzy,HS_5x,DoublePlayerHealth,AllYouCanEat,MoreAmmo)
 (Frenzy,HeadshotOnly,Vampirism?MaxHealth=1000,AllYouCanEat,MoreAmmo)
-(Frenzy,HS_3x,PistolsOnly,Vampirism?MaxHealth=500,MoreAmmo)
+(Frenzy,HS_3x,PistolsOnly,Vampirism?MaxHealth=300,MoreAmmo)
 (Frenzy,BoltActionsOnly,Ultralethal,ULTRABulletSponge,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
 (DumbFrenzy,BoltActionsOnly,ULTRABulletSponge,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
 (Frenzy,Vampirism?MaxHealth=IED_DAMAGE,Poor) (knife fight against frenzy enemies)
