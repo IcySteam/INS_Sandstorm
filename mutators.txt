@@ -19,9 +19,9 @@ Mutator combos:
 (Frenzy,GunFrenzy,HS_15x,Vampirism,MoreAmmo)
 (Frenzy,HealthyFrenzy,HS_5x,DoublePlayerHealth,AllYouCanEat,MoreAmmo)
 (Frenzy,HeadshotOnly,HS_15x,Vampirism,AllYouCanEat,MoreAmmo)
-(Frenzy,HS_15x,PistolsOnly,Vampirism,MoreAmmo)
+(Frenzy,PistolsOnly,HS_15x,Vampirism,MoreAmmo)
 (Frenzy,BoltActionsOnly,Ultralethal,ULTRABulletSponge,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
-(DumbFrenzy,BoltActionsOnly,ULTRABulletSponge,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
+(DumbFrenzy,BoltActionsOnly,HS_15x,Vampirism,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
 (Frenzy,Vampirism?MaxHealth=IED_DAMAGE,Poor) (knife fight against frenzy enemies)
 (Poor,Vampirism), SupplyGainFrequency=300
 (HotPotato,FastMovement)
