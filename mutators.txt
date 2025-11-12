@@ -14,17 +14,20 @@ Mutator combos:
 (FastMovement,BulletSponge,LockedAim)
 (Frenzy)
 (Frenzy,AllYouCanEat,MoreAmmo)
+(Frenzy,HS_15x,Vampirism,MoreAmmo) (for FrenzyRevived in Outpost and Survival)
 (ChadTeam666Night,MoreAmmo)
 (FrenzyRevived,Vampirism,AllYouCanEat,MoreAmmo)
-(Frenzy,GunFrenzy,HS_15x,Vampirism,MoreAmmo)
+(Frenzy,GunFrenzy,HS_15x,DoublePlayerHealth,MoreAmmo)
 (Frenzy,HealthyFrenzy,HS_5x,DoublePlayerHealth,AllYouCanEat,MoreAmmo)
 (Frenzy,HeadshotOnly,HS_15x,Vampirism,AllYouCanEat,MoreAmmo)
 (Frenzy,PistolsOnly,HS_15x,Vampirism,MoreAmmo)
 (Frenzy,BoltActionsOnly,Ultralethal,ULTRABulletSponge,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
 (DumbFrenzy,BoltActionsOnly,HS_15x,Vampirism,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
+(Frenzy,Poor,HS_15x,Vampirism,MoreAmmo), SupplyGainFrequency=250 (for day map)
+(Frenzy,Guerrillas,HS_15x,Vampirism,MoreAmmo), SupplyGainFrequency=250 (for night map)
 (Frenzy,Vampirism?MaxHealth=IED_DAMAGE,Poor) (knife fight against frenzy enemies)
-(Poor,Vampirism), SupplyGainFrequency=300 (for day map)
-(Guerrillas,Vampirism), SupplyGainFrequency=300 (for night map)
+(Poor,Vampirism), SupplyGainFrequency=250 (for day map)
+(Guerrillas,Vampirism), SupplyGainFrequency=250 (for night map)
 (HotPotato,FastMovement)
 (HotPotato,Vampirism?MaxHealth=300)
 (PistolsOnly,Ultralethal), bBotsUseHumanLoadouts=True
@@ -39,4 +42,6 @@ Config-UNFRIENDLY mutators:
 Frenzy: MinMaxEnemies and MaxPlayersToScaleEnemyCount not working, default number of enemies spawn regardless; need to use gamemodeproperty RCon command every time before round starts to fix (or just use SISSM); default enemy count: 8 - 40, increase/decrease enemies accordingly with mutators
 ChadTeam666Night: stuck in "Waiting for Players" when there is only 1 player
 Ultralethal: is NOT compatible with Vampirism and HeadshotOnly
+LockedAim: is NOT compatible with JumpShoot
+CpSave: do NOT use with Survival mode (sends you straight to the extraction point when the round starts)
 Supply point mutators: they override Game.ini (e.g. InitialSupply, MaximumSupply) if used
