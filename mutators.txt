@@ -18,7 +18,7 @@ Mutator combos:
 (ChadTeam666Night,MoreAmmo)
 (FrenzyRevived,Vampirism,AllYouCanEat,MoreAmmo)
 (Frenzy,GunFrenzy,HS_15x,DoublePlayerHealth,MoreAmmo)
-(Frenzy,HealthyFrenzy,HS_5x,DoublePlayerHealth,AllYouCanEat,MoreAmmo)
+(Frenzy,HealthyFrenzy,HS_3x,DoublePlayerHealth,AllYouCanEat,MoreAmmo)
 (Frenzy,HeadshotOnly,HS_15x,Vampirism,AllYouCanEat,MoreAmmo)
 (Frenzy,PistolsOnly,HS_15x,Vampirism,MoreAmmo)
 (Frenzy,BoltActionsOnly,Ultralethal,ULTRABulletSponge,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
