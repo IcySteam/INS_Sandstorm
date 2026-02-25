@@ -3,6 +3,7 @@ Approved & config-FRIENDLY mutators:
 Default mutator properties:
 Frenzy: Vampirism?MaxHealth=300
 Co-Op: Vampirism?MaxHealth=100
+Frenzy - vanilla progression: Vampirism?MaxHealth=300
 
 Mutator combos:
 (AntiMaterielRiflesOnly,Vampirism), bBotsUseHumanLoadouts=False
@@ -25,7 +26,9 @@ Mutator combos:
 (DumbFrenzy,BoltActionsOnly,HS_15x,Vampirism,MoreAmmo) (only for Security Bolt-Actionman as MR 73 is available)
 (Frenzy,Poor,HS_15x,DoublePlayerHealth,MoreAmmo), SupplyGainFrequency=250 (for day map)
 (Frenzy,Guerrillas,HS_15x,DoublePlayerHealth,MoreAmmo), SupplyGainFrequency=250 (for night map)
-(Frenzy,Vampirism?MaxHealth=IED_DAMAGE,Poor) (knife fight against frenzy enemies)
+(Frenzy,Vampirism?MaxHealth=IED_DAMAGE,Poor) (knife fight against Frenzy enemies)
+(Frenzy,Vampirism,Strapped), SupplyGainFrequency=375 (for day map) (Frenzy - vanilla progression)
+(Frenzy,Vampirism,Poor), SupplyGainFrequency=375 (for night map) (Frenzy - vanilla progression)
 (Poor,Vampirism), SupplyGainFrequency=250 (for day map)
 (Guerrillas,Vampirism), SupplyGainFrequency=250 (for night map)
 (HotPotato,FastMovement)
